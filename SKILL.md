@@ -1,6 +1,6 @@
 ---
 name: ai-science-inquiry-writer
-description: Research and write source-backed Traditional Chinese articles that connect AI literacy with science inquiry, classroom practice, science fairs, biodiversity, environmental education, or hands-on experiments. Use when the user asks for an AI-and-science inquiry article, teaching feature, educator-facing technical article, inquiry case study, or a 2,000–3,000-character publishable article involving AI-assisted observation, identification, data analysis, verification, experimentation, or ecological investigation. For every completed article, always export downloadable UTF-8 plain-text and standalone HTML files with matching topic-related English filenames, add one-click copy and print controls, and expose the exact plain text in a Codex-copyable `text` code block.
+description: Research and write source-backed Traditional Chinese articles that connect AI literacy with science inquiry, classroom practice, science fairs, biodiversity, environmental education, or hands-on experiments. Use when the user asks for an AI-and-science inquiry article, teaching feature, educator-facing technical article, inquiry case study, or a 2,000–3,000-character publishable article involving AI-assisted observation, identification, data analysis, verification, experimentation, or ecological investigation. For every completed article, always export downloadable UTF-8 plain-text and standalone HTML files with matching topic-related English filenames, expose the exact plain text in a Codex-copyable `text` code block, deploy the HTML to the prayer168/docs GitHub Pages site, and return the verified public URL.
 ---
 
 # AI 與科學探究文章生成
@@ -101,26 +101,44 @@ description: Research and write source-backed Traditional Chinese articles that 
 HTML 必須：
 
 - 使用 `lang="zh-Hant"`、`charset="utf-8"` 與 viewport 設定。
-- 將 CSS 與 JavaScript 內嵌，不依賴外部 CDN，離線開啟仍可閱讀與操作。
+- 將所需 CSS 與 JavaScript 內嵌，不依賴外部 CDN，離線開啟仍可閱讀。
 - 採 RWD 閱讀版面、清楚色彩對比、合理行距與最大欄寬。
-- 提供「複製純文字」按鈕；複製內容須與 `.txt` 的標題、正文及資料來源一致，不複製按鈕或狀態訊息。
-- 優先使用 Clipboard API，並提供相容性回退；以 `aria-live` 呈現複製成功或失敗狀態。
-- 提供列印按鈕與列印樣式，列印時隱藏操作按鈕。
+- 開啟網頁後直接顯示文章，不得在頁面頂端、正文前或頁面其他位置加入「複製純文字」、「列印文章」或其他操作工具列與按鈕。
+- 可提供適合瀏覽器原生列印的列印樣式，但不得另外顯示列印按鈕。
 - 讓外部來源連結可點擊，並使用安全的開新頁設定。
 
-交付前檢查兩個檔案皆存在、可用 UTF-8 讀取、標題與來源完整一致；檢查 HTML 結構、複製按鈕、列印功能與窄螢幕排版。
+交付前檢查兩個檔案皆存在、可用 UTF-8 讀取、標題與來源完整一致；檢查 HTML 結構、確認沒有操作工具列或按鈕、來源連結與窄螢幕排版。
+
+### 8. 部署 HTML 到 GitHub Pages
+
+兩個檔案驗證完成後，使用 `github-pages-html-deploy` 技能將本次產生的 `.html` 直接部署到下列固定站點；只部署 HTML，不把 `.txt` 加入 Pages 儲存庫：
+
+- GitHub 儲存庫：`prayer168/docs`
+- Pages 來源：`main` 分支根目錄
+- 公開網址：`https://prayer168.github.io/docs/{english-topic-slug}.html`
+
+部署時：
+
+1. 先確認 GitHub CLI 已登入、儲存庫存在，而且 Pages 狀態與來源設定正確。
+2. 若目前輸出目錄正是 `prayer168/docs` 的工作樹，直接在該工作樹操作；否則使用乾淨的暫存 checkout，避免把其他專案檔案混入。
+3. 將 HTML 放在儲存庫根目錄並保留原本的英文檔名。提交前先 fetch，確認遠端進度與工作樹狀態。
+4. 只 stage 本次 HTML，不 stage 純文字檔或任何無關變更；檢查 HTML 的標題及基本結構後再 commit、push 到 `main`。
+5. 輪詢 Pages 建置狀態，並實際請求公開網址。只有在 HTTP 200 且頁面包含預期標題或正文識別文字後，才算部署完成。
+6. 若同一內容已經在遠端，無須製造空提交，但仍須重新驗證公開網址。
+7. 若因登入、權限、分支保護、衝突或 Pages 建置失敗而無法完成，不得宣稱已部署；保留本機成品並清楚回報阻礙。
 
 最終回覆必須依序包含：
 
 1. 簡短完成說明。
-2. 標示為「下載純文字檔」與「下載網頁檔」的可點擊絕對路徑檔案連結，讓使用者可直接開啟或下載兩個成品。
-3. 「一鍵複製純文字」標示。
-4. 一個使用 `text` 或 `plaintext` 語言標記的 fenced code block，放入 `.txt` 的完整內容。Codex 會為此程式碼區塊提供一鍵複製按鈕。
+2. 標示為「GitHub Pages 網頁」的可點擊公開連結，並說明已完成線上驗證。
+3. 標示為「下載純文字檔」與「下載網頁檔」的可點擊絕對路徑檔案連結，讓使用者可直接開啟或下載兩個本機成品。
+4. 「一鍵複製純文字」標示。
+5. 一個使用 `text` 或 `plaintext` 語言標記的 fenced code block，放入 `.txt` 的完整內容。Codex 會為此程式碼區塊提供一鍵複製按鈕。
 
 程式碼區塊內只能放純文字檔內容，不得加入前言、檔名、註解或省略符號；不得截斷正文或資料來源。交付前逐字比較程式碼區塊與 `.txt`，確保兩者完全一致。即使文章較長，也不得以檔案連結取代此程式碼區塊。
 
 ## 輸出規格
 
-每次固定交付使用相同主題英文檔名的 `.txt` 與 `.html`，提供可點擊下載連結，並在 Codex 最終回覆中以 `text` fenced code block 完整重現 `.txt`，讓使用者能使用內建按鈕一鍵複製。HTML 的「複製純文字」按鈕也必須複製與 `.txt` 相同的乾淨全文。若使用者另要求 DOCX、PDF、簡報或學習單，再使用相應文件技能製作並驗證；這些附加格式不取代固定的兩個檔案、下載連結與 Codex 一鍵複製區塊。
+每次固定交付使用相同主題英文檔名的 `.txt` 與 `.html`，提供可點擊下載連結，將 HTML 部署到 `https://prayer168.github.io/docs/` 並提供經驗證的公開網址，再於 Codex 最終回覆中以 `text` fenced code block 完整重現 `.txt`，讓使用者能使用內建按鈕一鍵複製。HTML 僅呈現文章內容，不加入複製、列印或其他操作工具列與按鈕。若使用者另要求 DOCX、PDF、簡報或學習單，再使用相應文件技能製作並驗證；這些附加格式不取代固定的兩個檔案、Pages 部署、下載連結與 Codex 一鍵複製區塊。
 
 若主題可能涉及有毒植物、野外採集、過敏、動物干擾或其他安全風險，加入符合學生年齡的簡短安全提醒。
