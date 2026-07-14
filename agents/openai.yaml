@@ -1,0 +1,11 @@
+interface:
+  display_name: "AI 與科學探究文章生成"
+  short_description: "查證並撰寫 AI 科學探究文章，固定輸出純文字與 HTML"
+  default_prompt: "使用 $ai-science-inquiry-writer，根據我的主題撰寫有資料來源的繁體中文文章，並輸出純文字與 HTML 兩個檔案。"
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
