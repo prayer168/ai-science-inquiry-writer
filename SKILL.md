@@ -1,6 +1,6 @@
 ---
 name: ai-science-inquiry-writer
-description: Research and write source-backed Traditional Chinese articles that connect AI literacy with science inquiry, classroom practice, science fairs, biodiversity, environmental education, or hands-on experiments. Use when the user asks for an AI-and-science inquiry article, teaching feature, educator-facing technical article, inquiry case study, or a 2,000–3,000-character publishable article involving AI-assisted observation, identification, data analysis, verification, experimentation, or ecological investigation. For every completed article, always export both a UTF-8 plain-text file and a standalone HTML page with one-click copy and print controls.
+description: Research and write source-backed Traditional Chinese articles that connect AI literacy with science inquiry, classroom practice, science fairs, biodiversity, environmental education, or hands-on experiments. Use when the user asks for an AI-and-science inquiry article, teaching feature, educator-facing technical article, inquiry case study, or a 2,000–3,000-character publishable article involving AI-assisted observation, identification, data analysis, verification, experimentation, or ecological investigation. For every completed article, always export both a UTF-8 plain-text file and a standalone HTML page with one-click copy and print controls, and expose the exact plain text in a Codex-copyable `text` code block.
 ---
 
 # AI 與科學探究文章生成
@@ -106,10 +106,19 @@ HTML 必須：
 - 提供列印按鈕與列印樣式，列印時隱藏操作按鈕。
 - 讓外部來源連結可點擊，並使用安全的開新頁設定。
 
-交付前檢查兩個檔案皆存在、可用 UTF-8 讀取、標題與來源完整一致；檢查 HTML 結構、複製按鈕、列印功能與窄螢幕排版。最終回覆只需簡短說明完成，並提供兩個可點擊的絕對路徑檔案連結。
+交付前檢查兩個檔案皆存在、可用 UTF-8 讀取、標題與來源完整一致；檢查 HTML 結構、複製按鈕、列印功能與窄螢幕排版。
+
+最終回覆必須依序包含：
+
+1. 簡短完成說明。
+2. `.txt` 與 `.html` 的可點擊絕對路徑檔案連結。
+3. 「一鍵複製純文字」標示。
+4. 一個使用 `text` 或 `plaintext` 語言標記的 fenced code block，放入 `.txt` 的完整內容。Codex 會為此程式碼區塊提供一鍵複製按鈕。
+
+程式碼區塊內只能放純文字檔內容，不得加入前言、檔名、註解或省略符號；不得截斷正文或資料來源。交付前逐字比較程式碼區塊與 `.txt`，確保兩者完全一致。即使文章較長，也不得以檔案連結取代此程式碼區塊。
 
 ## 輸出規格
 
-每次固定交付 `.txt` 與 `.html` 兩個檔案，不以聊天訊息中的完整文章取代檔案。HTML 的「複製純文字」按鈕複製與 `.txt` 相同的乾淨全文。若使用者另要求 DOCX、PDF、簡報或學習單，再使用相應文件技能製作並驗證；這些附加格式不取代固定的兩個檔案。
+每次固定交付 `.txt` 與 `.html` 兩個檔案，並在 Codex 最終回覆中以 `text` fenced code block 完整重現 `.txt`，讓使用者能使用內建按鈕一鍵複製。HTML 的「複製純文字」按鈕也必須複製與 `.txt` 相同的乾淨全文。若使用者另要求 DOCX、PDF、簡報或學習單，再使用相應文件技能製作並驗證；這些附加格式不取代固定的兩個檔案與 Codex 一鍵複製區塊。
 
 若主題可能涉及有毒植物、野外採集、過敏、動物干擾或其他安全風險，加入符合學生年齡的簡短安全提醒。
