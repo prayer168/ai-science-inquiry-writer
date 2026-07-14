@@ -1,7 +1,7 @@
 interface:
   display_name: "AI 與科學探究文章生成"
-  short_description: "查證並撰寫 AI 科學探究文章，輸出雙檔與一鍵複製全文"
-  default_prompt: "使用 $ai-science-inquiry-writer，根據我的主題撰寫有資料來源的繁體中文文章，輸出純文字與 HTML，並在 Codex 提供一鍵複製全文。"
+  short_description: "查證並撰寫 AI 科學探究文章，輸出英文檔名雙檔與一鍵複製"
+  default_prompt: "使用 $ai-science-inquiry-writer，根據我的主題撰寫有資料來源的繁體中文文章，以主題相關英文檔名輸出可下載的純文字與 HTML，並提供一鍵複製全文。"
 policy:
   products:
   - chatgpt

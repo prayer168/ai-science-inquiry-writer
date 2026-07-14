@@ -1,6 +1,6 @@
 ---
 name: ai-science-inquiry-writer
-description: Research and write source-backed Traditional Chinese articles that connect AI literacy with science inquiry, classroom practice, science fairs, biodiversity, environmental education, or hands-on experiments. Use when the user asks for an AI-and-science inquiry article, teaching feature, educator-facing technical article, inquiry case study, or a 2,000–3,000-character publishable article involving AI-assisted observation, identification, data analysis, verification, experimentation, or ecological investigation. For every completed article, always export both a UTF-8 plain-text file and a standalone HTML page with one-click copy and print controls, and expose the exact plain text in a Codex-copyable `text` code block.
+description: Research and write source-backed Traditional Chinese articles that connect AI literacy with science inquiry, classroom practice, science fairs, biodiversity, environmental education, or hands-on experiments. Use when the user asks for an AI-and-science inquiry article, teaching feature, educator-facing technical article, inquiry case study, or a 2,000–3,000-character publishable article involving AI-assisted observation, identification, data analysis, verification, experimentation, or ecological investigation. For every completed article, always export downloadable UTF-8 plain-text and standalone HTML files with matching topic-related English filenames, add one-click copy and print controls, and expose the exact plain text in a Codex-copyable `text` code block.
 ---
 
 # AI 與科學探究文章生成
@@ -91,10 +91,12 @@ description: Research and write source-backed Traditional Chinese articles that 
 
 每次完成文章後，固定在使用者指定的目錄產生下列兩個檔案；未指定時使用目前工作目錄：
 
-1. `{安全檔名}.txt`：UTF-8 純文字，包含標題、正文與完整資料來源。保留清楚段落與完整網址，不含 Markdown 符號、HTML 標籤、寫作過程或操作說明。
-2. `{安全檔名}.html`：UTF-8 單檔網頁，內容與純文字版一致，加入語意化標題、段落、清單、表格與可點擊來源。
+1. `{english-topic-slug}.txt`：UTF-8 純文字，包含標題、正文與完整資料來源。保留清楚段落與完整網址，不含 Markdown 符號、HTML 標籤、寫作過程或操作說明。
+2. `{english-topic-slug}.html`：UTF-8 單檔網頁，內容與純文字版一致，加入語意化標題、段落、清單、表格與可點擊來源。
 
-以文章標題建立安全檔名，移除 Windows 不允許的字元並避免尾端句點或空白。若同名檔案已存在且不是本次任務產物，加入日期時間後綴，避免覆寫使用者檔案。兩個檔案必須使用相同主檔名。
+根據文章主題翻譯並濃縮成 3–8 個有意義的英文關鍵字，建立小寫 ASCII kebab-case 主檔名。只使用 `a-z`、`0-9` 與連字號，不使用中文、空格、底線、無意義羅馬拼音或 Windows 禁用字元。例如「自然數位互動教材在教學上的應用」使用 `interactive-science-teaching-materials`。兩個檔案必須使用相同英文主檔名。
+
+若同名檔案已存在且不是本次任務產物，在英文主檔名後加入 `-YYYYMMDD-HHmmss`，避免覆寫使用者檔案。建立檔案後確認實際檔名符合 `^[a-z0-9]+(?:-[a-z0-9]+)*\.(txt|html)$`。
 
 HTML 必須：
 
@@ -111,7 +113,7 @@ HTML 必須：
 最終回覆必須依序包含：
 
 1. 簡短完成說明。
-2. `.txt` 與 `.html` 的可點擊絕對路徑檔案連結。
+2. 標示為「下載純文字檔」與「下載網頁檔」的可點擊絕對路徑檔案連結，讓使用者可直接開啟或下載兩個成品。
 3. 「一鍵複製純文字」標示。
 4. 一個使用 `text` 或 `plaintext` 語言標記的 fenced code block，放入 `.txt` 的完整內容。Codex 會為此程式碼區塊提供一鍵複製按鈕。
 
@@ -119,6 +121,6 @@ HTML 必須：
 
 ## 輸出規格
 
-每次固定交付 `.txt` 與 `.html` 兩個檔案，並在 Codex 最終回覆中以 `text` fenced code block 完整重現 `.txt`，讓使用者能使用內建按鈕一鍵複製。HTML 的「複製純文字」按鈕也必須複製與 `.txt` 相同的乾淨全文。若使用者另要求 DOCX、PDF、簡報或學習單，再使用相應文件技能製作並驗證；這些附加格式不取代固定的兩個檔案與 Codex 一鍵複製區塊。
+每次固定交付使用相同主題英文檔名的 `.txt` 與 `.html`，提供可點擊下載連結，並在 Codex 最終回覆中以 `text` fenced code block 完整重現 `.txt`，讓使用者能使用內建按鈕一鍵複製。HTML 的「複製純文字」按鈕也必須複製與 `.txt` 相同的乾淨全文。若使用者另要求 DOCX、PDF、簡報或學習單，再使用相應文件技能製作並驗證；這些附加格式不取代固定的兩個檔案、下載連結與 Codex 一鍵複製區塊。
 
 若主題可能涉及有毒植物、野外採集、過敏、動物干擾或其他安全風險，加入符合學生年齡的簡短安全提醒。
